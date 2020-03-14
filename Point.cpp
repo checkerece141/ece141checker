@@ -66,25 +66,23 @@ namespace ECE141 {
 		return 0;
 	}
 
-	int Point::GetDeeper(Game& aGame, Location aLocation, const PieceColor aColor) {
-		vector<Location> front;
+	int Point::GetDeeper(Game& aGame, Location aLocation, const PieceColor aColor, const PieceKind aKind) {
+		Location front = aLocation;
+		if (aKind == PieceKind::king)
+			return 0;
 		if (aColor == PieceColor::blue) {
-			front.push_back(Location(aLocation.row - 1, aLocation.col + 1));
-			front.push_back(Location(aLocation.row - 1, aLocation.col - 1));
+			front = aLocation;
 		}
 		else {
-			front.push_back(Location(7 - aLocation.row - 1, 7 - aLocation.col + 1));
-			front.push_back(Location(7 - aLocation.row - 1, 7 - aLocation.col - 1));
+			front.row = 7 - aLocation.row;
+			front.col = 7 - aLocation.col;
 		}
-
-		for (int i = 0; i < front.size(); i++) {
-			if (Player::isValidLoc(front[i])){
-				if (front[i].row == 0) {
-					return 10;
-				}
-				else {
-						return 7 - front[i].row;
-				}
+		if (Player::isValidLoc(front)) {
+			if (front.row == 0) {
+				return 10;
+			}
+			else {
+				return 7 - front.row;
 			}
 		}
 		return 0;

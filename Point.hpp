@@ -11,7 +11,7 @@ namespace ECE141 {
 		static bool Jump(Game& aGame, Location& aLocation, const PieceColor aColor, const PieceKind aKind);
 		static int TakenByOpponent(Game& aGame, Location aLocation, const PieceColor aColor);
 		static bool Occupy(Game& aGame, Location aLocation, const PieceColor aColor);
-		static int GetDeeper(Game& aGame, Location aLocation, const PieceColor aColor);
+		static int GetDeeper(Game& aGame, Location aLocation, const PieceColor aColor, const PieceKind aKind);
 };
 #pragma once
 

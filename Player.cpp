@@ -85,7 +85,7 @@ namespace ECE141 {
 					for (int i = 0; i < target.size(); i++) {
 						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
 							score += Point::TakenByOpponent(aGame, target[i], color);
-							score += Point::GetDeeper(aGame, target[i], color);
+							score += Point::GetDeeper(aGame, target[i], color, kind);
 							if (score > bestScore) {
 								bestScore = score;
 								bestLoc = target[i];
@@ -107,7 +107,7 @@ namespace ECE141 {
 					for (int i = 0; i < target.size(); i++) {
 						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
 							score += Point::TakenByOpponent(aGame, target[i], color);
-							score += Point::GetDeeper(aGame, target[i], color);
+							score += Point::GetDeeper(aGame, target[i], color, kind);
 							if (score > bestScore) {
 								bestScore = score;
 								bestLoc = target[i];
