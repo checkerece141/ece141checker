@@ -93,26 +93,26 @@ namespace ECE141 {
 						}
 					}
 				}
-					if (color == PieceColor::gold) {
-						Location tempLoc(PieceLoc);
-						bool isJump = 0;
-						while (Point::Jump(aGame, tempLoc, color, kind)) {
-							isJump = 1;
-							cout << "Move Jump: " << PieceLoc.row << " " << PieceLoc.col << " to " << tempLoc.row << " " << tempLoc.col << endl;
-							aGame.movePieceTo(*thePiece, tempLoc);
-						}
-						if (isJump == 1)
+				if (color == PieceColor::gold) {
+					Location tempLoc(PieceLoc);
+					bool isJump = 0;
+					while (Point::Jump(aGame, tempLoc, color, kind)) {
+						isJump = 1;
+						cout << "Move Jump: " << PieceLoc.row << " " << PieceLoc.col << " to " << tempLoc.row << " " << tempLoc.col << endl;
+						aGame.movePieceTo(*thePiece, tempLoc);
+					}
+					if (isJump == 1)
+						return true;
+					for (auto x : target) {
+						if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
+							cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
+							cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
+							aGame.movePieceTo(*thePiece, x);
 							return true;
-						for (auto x : target) {
-							if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
-								cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
-								cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
-								aGame.movePieceTo(*thePiece, x);
-								return true;
-							}
 						}
 					}
 				}
+			}
 	    }
     return false; //if you return false, you forfeit!
   }

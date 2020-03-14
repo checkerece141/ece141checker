@@ -62,16 +62,6 @@ namespace ECE141 {
 					}
 				}
 			}
-			if ((Player::isValidLoc(LocTempc) && Player::isValidLoc(LocTempc2))) {
-				if (aGame.getTileAt(LocTempc)->getPiece()!=nullptr&& (aGame.getTileAt(LocTempc)->getPiece()->getColor()==PieceColor::blue)) {
-					cout <<(aGame.getTileAt(LocTempc)->getPiece()->getColor()==PieceColor::gold)<<endl;
-					if (aGame.getTileAt(LocTempc2)->getPiece() == nullptr) {
-						aLocation.row = 7 - LocTempc2.row;
-						aLocation.col = 7 - LocTempc2.col;
-						return 1;
-					}
-				}
-			}
 		}
 		return 0;
 	}
