@@ -49,7 +49,7 @@ namespace ECE141 {
     size_t theCount=aGame.countAvailablePieces(color);
 	Location bestLoc(-1,-1);
 	int bestScore = -100;
-	Piece* thatPiece;
+	const Piece* thatPiece;
 		for (int pos = 0; pos < theCount; pos++) {
 			//NOTICE HOW WE CHECK FOR CAPTURED PIECES?
 			if (const Piece* thePiece = aGame.getAvailablePiece(this->color, pos)) {
@@ -70,7 +70,7 @@ namespace ECE141 {
 					target.push_back(Location(PieceLoc.row + 1, PieceLoc.col + 1));
 					target.push_back(Location(PieceLoc.row + 1, PieceLoc.col - 1));
 				}
-				vector<int> score(4, 0); 
+				int score = 0; 
 				if (color == PieceColor::blue) {
 					Location tempLoc(PieceLoc);
 					bool isJump = 0;
@@ -82,14 +82,13 @@ namespace ECE141 {
 					if (isJump == 1)
 						return true;
 					int index = 0;
-					for (auto x : target) {
-						if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
-							cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
-							score[index] += Point::TakenByOpponent(aGame, x, color);
-							index++;
-							cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
-							aGame.movePieceTo(*thePiece, x);
-							return true;
+					for (int i = 0; i < target.size(); i++) {
+						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
+							if (score > bestScore) {
+								bestScore = score;
+								bestLoc = target[i];
+								thatPiece = thePiece;
+							}
 						}
 					}
 				}
@@ -103,17 +102,22 @@ namespace ECE141 {
 					}
 					if (isJump == 1)
 						return true;
-					for (auto x : target) {
-						if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
-							cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
-							cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
-							aGame.movePieceTo(*thePiece, x);
-							return true;
+					for (int i = 0; i < target.size(); i++) {
+						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
+							if (score > bestScore) {
+								bestScore = score;
+								bestLoc = target[i];
+								thatPiece = thePiece;
+							}
 						}
 					}
 				}
 			}
 	    }
+		if (bestScore != -100) {
+			aGame.movePieceTo(*thatPiece, bestLoc);
+			return true;
+		}
     return false; //if you return false, you forfeit!
   }
 }
