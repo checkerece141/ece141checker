@@ -66,6 +66,30 @@ namespace ECE141 {
 		return 0;
 	}
 
+	int Point::GetDeeper(Game& aGame, Location aLocation, const PieceColor aColor) {
+		vector<Location> front;
+		if (aColor == PieceColor::blue) {
+			front.push_back(Location(aLocation.row - 1, aLocation.col + 1));
+			front.push_back(Location(aLocation.row - 1, aLocation.col - 1));
+		}
+		else {
+			front.push_back(Location(7 - aLocation.row - 1, 7 - aLocation.col + 1));
+			front.push_back(Location(7 - aLocation.row - 1, 7 - aLocation.col - 1));
+		}
+
+		for (int i = 0; i < front.size(); i++) {
+			if (Player::isValidLoc(front[i])){
+				if (front[i].row == 0) {
+					return 10;
+				}
+				else {
+						return 7 - front[i].row;
+				}
+			}
+		}
+		return 0;
+	}
+
 	int Point::TakenByOpponent(Game &aGame, Location aLocation, const PieceColor aColor) {
 		vector<Location> front;
 		vector<Location> behind;
