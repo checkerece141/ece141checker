@@ -11,6 +11,7 @@
 
 #include "Player.hpp"
 #include "Piece.hpp"
+#include "Point.hpp"
 #include  "stdio.h"
 #include <iostream>
 #include <functional>

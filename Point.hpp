@@ -7,6 +7,8 @@
 #include "Player.hpp"
 #include <math.h>
 namespace ECE141 {
+	class Game; //forward declare...  
+
 	class Point {
 	public:
 		static bool Jump(Game& aGame, Location& aLocation, const PieceColor aColor, const PieceKind aKind);
@@ -16,6 +18,7 @@ namespace ECE141 {
 		static int StandBehind(Game& aGame, Location aLocation, const PieceColor aColor);
 		static int PoliceAndThief(Game& aGame, Location aLocation, const PieceColor aColor);
 		static Location GetNearstEnemy(Game& aGame, Location aLocation, const PieceColor aColor);
+		friend class Game;
 };
 #pragma once
 

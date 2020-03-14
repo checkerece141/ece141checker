@@ -96,6 +96,7 @@ namespace ECE141 {
 				Location c(Row + i - j, Col + i);
 				Location d(Row - i, Col + i -j);
 				if (Player::isValidLoc(a) && aGame.getTileAt(a)->getPiece() != nullptr && aGame.getTileAt(a)->getPiece()->getColor() != aColor) {
+					cout << "hello" << endl;
 					return a;
 				}
 				if (Player::isValidLoc(b) && aGame.getTileAt(b)->getPiece() != nullptr && aGame.getTileAt(b)->getPiece()->getColor() != aColor) {
@@ -109,22 +110,24 @@ namespace ECE141 {
 				}
 			}
 		}
+		return aLocation;
     }
 	int Point::PoliceAndThief(Game& aGame, Location aLocation, const PieceColor aColor) {
 		if (aGame.countAvailablePieces(PieceColor::blue) > aGame.countAvailablePieces(PieceColor::gold)&& (aGame.countAvailablePieces(PieceColor::blue) + aGame.countAvailablePieces(PieceColor::gold))<10) {
 			if (aColor == PieceColor::blue) {
-				return 10-(abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col)+abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row)));
+				return (15-(abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col)+abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row))));
 			}
 			else {
-				return (abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row)));
+				return 2*(abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row))+ abs(3 - aLocation.col));
 			}
 		}
 		else  if((aGame.countAvailablePieces(PieceColor::blue) + aGame.countAvailablePieces(PieceColor::gold)) < 10){
 			if (aColor == PieceColor::gold) {
-				return 10 - (abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row)));
+				int temp = (15 - (abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row))));
+				return  temp;
 			}
 			else {
-				return (abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row)));
+				return 2*(abs(GetNearstEnemy(aGame, aLocation, aColor).col - aLocation.col) + abs((GetNearstEnemy(aGame, aLocation, aColor).row - aLocation.row))+ abs(3 - aLocation.col));
 			}
 		}
 		return 0;
@@ -149,7 +152,7 @@ namespace ECE141 {
 			if ((Player::isValidLoc(target[i]) && Player::isValidLoc(farTarget[i]))) {
 				if (aGame.getTileAt(target[i])->getPiece() == nullptr) {
 					if (aGame.getTileAt(farTarget[i])->getPiece() != nullptr && (aGame.getTileAt(farTarget[i])->getPiece()->getColor() == aColor)) {
-						return 4;
+						return 8;
 					}
 				}
 			}
@@ -183,10 +186,10 @@ namespace ECE141 {
 		for (int i = 0; i < front.size(); i++) {
 			if (Player::isValidLoc(front[i]) && Player::isValidLoc(behind[i])) {
 				if (i<=1&& (aGame.getTileAt(front[i])->getPiece()!=nullptr) &&(aGame.getTileAt(front[i])->getPiece()->getColor() != aColor) && (aGame.getTileAt(behind[i])->getPiece() == nullptr)) {
-					return -10;
+					return -15;
 				}
 				else if (i > 1 && (aGame.getTileAt(front[i])->getPiece() != nullptr) &&(aGame.getTileAt(front[i])->getPiece()->getKind()==PieceKind::king) && (aGame.getTileAt(front[i])->getPiece()->getColor() != aColor) && (aGame.getTileAt(behind[i])->getPiece() == nullptr)) {
-					return -10;
+					return -15;
 				}
 			}
 		}
