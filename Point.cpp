@@ -37,14 +37,6 @@ namespace ECE141 {
 			farTarget.push_back(Location(7 - aLocation.row - 2, 7 - aLocation.col + 2));
 			farTarget.push_back(Location(7 - aLocation.row - 2, 7 - aLocation.col - 2));
 		}
-		Location LocTempa(aLocation.row - 1, aLocation.col + 1);
-		Location LocTempb(aLocation.row - 1, aLocation.col - 1);
-		Location LocTempc(7-(aLocation.row + 1), 7-(aLocation.col + 1));
-		Location LocTempd(7-(aLocation.row + 1), 7-(aLocation.col - 1));
-		Location LocTempa2(aLocation.row - 2, aLocation.col + 2);
-		Location LocTempb2(aLocation.row - 2, aLocation.col - 2);
-		Location LocTempc2(7-(aLocation.row + 2), 7-(aLocation.col + 2));
-		Location LocTempd2(7-(aLocation.row + 2), 7-(aLocation.col - 2));
 		if (aColor == PieceColor::blue) {
 			for (int i = 0; i < target.size(); i++) {
 				if ((Player::isValidLoc(target[i]) && Player::isValidLoc(farTarget[i]))) {

@@ -70,7 +70,7 @@ namespace ECE141 {
 					target.push_back(Location(PieceLoc.row + 1, PieceLoc.col + 1));
 					target.push_back(Location(PieceLoc.row + 1, PieceLoc.col - 1));
 				}
-				vector<int> score(4, 0);      // 0 is 45  1 is 135  2 is 225   3 is 315
+				vector<int> score(4, 0); 
 				if (color == PieceColor::blue) {
 					Location tempLoc(PieceLoc);
 					bool isJump = 0;
@@ -84,7 +84,7 @@ namespace ECE141 {
 					int index = 0;
 					for (auto x : target) {
 						if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
-							cout << "Move right: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
+							cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
 							score[index] += Point::TakenByOpponent(aGame, x, color);
 							index++;
 							cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
@@ -105,7 +105,7 @@ namespace ECE141 {
 							return true;
 						for (auto x : target) {
 							if (isValidLoc(x) && !Point::Occupy(aGame, x, color)) {
-								cout << "Move right: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
+								cout << "Move from: " << PieceLoc.row << " " << PieceLoc.col << " to " << x.row << " " << x.col << endl;
 								cout << "Get Caught? " << Point::TakenByOpponent(aGame, x, color) << endl;
 								aGame.movePieceTo(*thePiece, x);
 								return true;
