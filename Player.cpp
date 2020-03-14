@@ -30,7 +30,7 @@ namespace ECE141 {
 	  return false;
   }
   bool YuxiPlayer::takeTurn(Game &aGame, Orientation aDirection, std::ostream &aLog) {
-	  /*for (int i = 0; i < 8; i++) {
+	  for (int i = 0; i < 8; i++) {
 		  cout << i << " ";
 	  }
 	  cout << endl;
@@ -45,7 +45,7 @@ namespace ECE141 {
 				  cout << "G ";
 		  }
 		  cout << endl;
-	  }*/
+	  }
     size_t theCount=aGame.countAvailablePieces(color);
 	Location bestLoc(-1,-1);
 	int bestScore = -100;
@@ -78,6 +78,7 @@ namespace ECE141 {
 						isJump = 1;
 						cout << "Move Jump: " << PieceLoc.row << " " << PieceLoc.col << " to " << tempLoc.row << " " << tempLoc.col << endl;
 						aGame.movePieceTo(*thePiece, tempLoc);
+						kind = thePiece->getKind();
 					}
 					if (isJump == 1)
 						return true;
@@ -86,6 +87,8 @@ namespace ECE141 {
 						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
 							score += Point::TakenByOpponent(aGame, target[i], color);
 							score += Point::GetDeeper(aGame, target[i], color, kind);
+							score += Point::StandBehind(aGame, target[i], color);
+							score += Point::PoliceAndThief(aGame, target[i], color);
 							if (score > bestScore) {
 								bestScore = score;
 								bestLoc = target[i];
@@ -101,6 +104,7 @@ namespace ECE141 {
 						isJump = 1;
 						cout << "Move Jump: " << PieceLoc.row << " " << PieceLoc.col << " to " << tempLoc.row << " " << tempLoc.col << endl;
 						aGame.movePieceTo(*thePiece, tempLoc);
+						kind = thePiece->getKind();
 					}
 					if (isJump == 1)
 						return true;
@@ -108,6 +112,8 @@ namespace ECE141 {
 						if (isValidLoc(target[i]) && !Point::Occupy(aGame, target[i], color)) {
 							score += Point::TakenByOpponent(aGame, target[i], color);
 							score += Point::GetDeeper(aGame, target[i], color, kind);
+							score += Point::StandBehind(aGame, target[i], color);
+							score += Point::PoliceAndThief(aGame, target[i], color);
 							if (score > bestScore) {
 								bestScore = score;
 								bestLoc = target[i];
